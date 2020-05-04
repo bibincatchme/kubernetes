@@ -11,7 +11,7 @@
 #kubectl describe pod myfist-app
 
 #  Delete Pods
-#kubectl delete pods <pod>
+#kubectl delete pods < pod_name >
 
 # Get all deployments
 #kubectl get deployments --all-namespaces
