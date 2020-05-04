@@ -1,10 +1,19 @@
 
-kubectl create -f deployemnts.yml
+Create the deployemnt
+#kubectl create -f deployment-definition.yml
 
- kubectl get deployments
+Get all deployments
+#kubectl get deployments
 
-kubectl get replicaset
+Get the replicaset detail
+#kubectl get replicaset
 
-kubectl get pods
+Get all the pods details
+#kubectl get pods
 
-kubectl get all
+List everything
+#kubectl get all
+
+Describe
+#kubectl describe deployment
+
