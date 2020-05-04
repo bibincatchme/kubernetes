@@ -11,52 +11,52 @@ template:
 selector
 ```
 
-Create the deployemnt
-#kubectl create -f deployment-definition.yml
-kubectl create -f deployment-definition.yml --record (new flag record, for see deployment change cause)
+###### Create the deployemnt
+> kubectl create -f deployment-definition.yml
+> kubectl create -f deployment-definition.yml --record (new flag record, for see deployment change cause)
 
 
-Get all deployments
+###### Get all deployments
 #kubectl get deployments
 
-Get the replicaset detail
+###### Get the replicaset detail
 #kubectl get replicaset
 
-Get all the pods details
+###### Get all the pods details
 #kubectl get pods
 
-List everything
+###### List everything
 #kubectl get all
 
-Describe
+###### Describe
 #kubectl describe deployment
 
-Delete
+###### Delete
 kubectl delete deployment myapp-deployment
 
 
-Rollout for new versions, When a rollout is created a new revission is created.
-Deployemnt strategy 
-1.Recreate
-2.Rolling Update (by deafult)
+###### Rollout for new versions, When a rollout is created a new revission is created.
+###### Deployemnt strategy 
+###### 1.Recreate
+###### 2.Rolling Update (by deafult)
 
 
 
-Create
+###### Create
 kubectl create -f deployment-definition.yml
 
-Get detils
+###### Get detils
 kubectl get deployments
 
-Update
+###### Update
 kubectl apply -f deployment-definition.yml
 kubectl set image deployment/< pod_name > nginx=nginx:1.9.1
 kubectl set image deployment/myapp-deployment nginx=nginx:1.9.1
 kubectl set image deployment/replica-first nginx-containers1=nginx:1.12
 
-Status
+###### Status
 kubectl rollout status deployment/myapp-deployment
 kubectl rollout history deployment/myapp-deployment
 
-Rollback
+###### Rollback
 kubectl rollout undo deployment/myapp-deployment
