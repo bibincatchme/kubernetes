@@ -36,13 +36,13 @@ kubectl get pods
 Delete one pod from replicaset for testing it:
 kubectl delete pod replica-first-br97t
  
- More information about pods:
+ More information about pods :
  kubectl get pods -o wide
  
- Increase the replicaset and reploy:
+ Increase the replicaset and reploy :
  kubectl replace -f replicaset-definition.yml
   
- Increase the scale of replica manually via command line:
+ Increase the scale of replica manually via command line :
  kubectl scale --replicas=3 -f replicaset-definition.yml
   
  Delete the replica set
