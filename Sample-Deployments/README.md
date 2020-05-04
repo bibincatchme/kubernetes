@@ -49,14 +49,14 @@ kubectl create -f deployment-definition.yml
 kubectl get deployments
 
 ###### Update
-kubectl apply -f deployment-definition.yml
-kubectl set image deployment/< pod_name > nginx=nginx:1.9.1
-kubectl set image deployment/myapp-deployment nginx=nginx:1.9.1
-kubectl set image deployment/replica-first nginx-containers1=nginx:1.12
+> kubectl apply -f deployment-definition.yml
+> kubectl set image deployment/< pod_name > nginx=nginx:1.9.1
+> kubectl set image deployment/myapp-deployment nginx=nginx:1.9.1
+> kubectl set image deployment/replica-first nginx-containers1=nginx:1.12
 
 ###### Status
-kubectl rollout status deployment/myapp-deployment
-kubectl rollout history deployment/myapp-deployment
+> kubectl rollout status deployment/myapp-deployment
+> kubectl rollout history deployment/myapp-deployment
 
 ###### Rollback
-kubectl rollout undo deployment/myapp-deployment
+> kubectl rollout undo deployment/myapp-deployment
