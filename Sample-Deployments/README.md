@@ -1,13 +1,15 @@
-Only the chnages in apiVersion and Kind with replicaSet
-  
+###### Only the chnages in apiVersion and Kind with replicaSet
+ ``` 
 apiVersion: apps/v1
 kind: Deployment
+```
 
-
-Under the Spec it have
+###### Under the Spec it have
+```
 replicas:
 template:
 selector
+```
 
 Create the deployemnt
 #kubectl create -f deployment-definition.yml
