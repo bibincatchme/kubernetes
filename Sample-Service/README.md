@@ -30,3 +30,21 @@ Port on the Node > NodePort 30000 to 32767
 
 kubectl create -f
 kubectl get services
+
+
+
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+
+spec:
+  type: NodePort
+  ports:
+   - targetPort: 80
+     port: 80
+     nodePort: 30008
+  selector:
+      teir: frontend
