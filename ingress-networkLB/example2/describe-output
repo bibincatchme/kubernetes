@@ -1,0 +1,71 @@
+kubectl describe deployments
+Name:                   echo1-node
+Namespace:              default
+CreationTimestamp:      Thu, 07 May 2020 12:22:55 +0000
+Labels:                 <none>
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=echo1
+Replicas:               2 desired | 2 updated | 2 total | 2 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=echo1
+  Containers:
+   echo1:
+    Image:      hashicorp/http-echo
+    Port:       5678/TCP
+    Host Port:  0/TCP
+    Args:
+      -text=echo1
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   echo1-node-758886bdb8 (2/2 replicas created)
+Events:
+  Type    Reason             Age    From                   Message
+  ----    ------             ----   ----                   -------
+  Normal  ScalingReplicaSet  4m35s  deployment-controller  Scaled up replica set echo1-node-758886bdb8 to 2
+
+
+Name:                   echo2-node
+Namespace:              default
+CreationTimestamp:      Thu, 07 May 2020 12:23:03 +0000
+Labels:                 <none>
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=echo2
+Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=echo2
+  Containers:
+   echo2:
+    Image:      hashicorp/http-echo
+    Port:       5678/TCP
+    Host Port:  0/TCP
+    Args:
+      -text=echo2
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Progressing    True    NewReplicaSetAvailable
+  Available      True    MinimumReplicasAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   echo2-node-887765599 (3/3 replicas created)
+Events:
+  Type    Reason             Age    From                   Message
+  ----    ------             ----   ----                   -------
+  Normal  ScalingReplicaSet  4m27s  deployment-controller  Scaled up replica set echo2-node-887765599 to 1
+  Normal  ScalingReplicaSet  119s   deployment-controller  Scaled up replica set echo2-node-887765599 to 3
+[root@ip-172-31-28-250 ingrees]#
