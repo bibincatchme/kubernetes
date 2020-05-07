@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: example-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+    - web1.cloudjethost.com
+    secretName: tls-secret
+  rules:
+  - host: web1.cloudjethost.com
+    http:
+      paths:
+        - path: /echo1
+          backend:
+            serviceName: echo1
+            servicePort: 80
+        - path: /echo2
+          backend:
+            serviceName: echo2
+            servicePort: 80
