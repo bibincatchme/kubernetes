@@ -17,9 +17,9 @@ spec:
       paths:
         - path: /echo1
           backend:
-            serviceName: echo1
+            serviceName: echo1-service
             servicePort: 80
         - path: /echo2
           backend:
-            serviceName: echo2
+            serviceName: echo2-service
             servicePort: 80
