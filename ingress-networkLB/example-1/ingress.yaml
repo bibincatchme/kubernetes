@@ -1,0 +1,19 @@
+piVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: "echo-ingress"
+  namespace: "echo-page"
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+  labels:
+    app: echo-ingress
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /echo1
+            backend:
+              serviceName: "echo-service"
+              servicePort: 80
+v
