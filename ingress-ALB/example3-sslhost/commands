@@ -1,0 +1,98 @@
+v
+$ kubectl get ing -n <namespace-of-ingress-resource>
+[root@ip-172-31-86-210 ~]# kubectl get pods -n kube-system
+NAME                                      READY   STATUS    RESTARTS   AGE
+alb-ingress-controller-7cdb677c55-97zm9   1/1     Running   0          20h
+aws-node-nmnf5                            1/1     Running   0          23h
+aws-node-qg9fg                            1/1     Running   0          23h
+coredns-55c5fcd78f-9kqjb                  1/1     Running   0          25h
+coredns-55c5fcd78f-k8jfl                  1/1     Running   0          25h
+kube-proxy-722f9                          1/1     Running   0          23h
+kube-proxy-8f6pc                          1/1     Running   0          23h
+
+kubectl get pods -n <namespace-of-ingress-controller>
+[root@ip-172-31-86-210 ~]# kubectl get ingress/echo-ingress -n echotest
+NAME           HOSTS                   ADDRESS                                                                 PORTS   AGE
+echo-ingress   web1.cloudjethost.com   3698e846-echotest-echoingr-151d-151929068.us-east-1.elb.amazonaws.com   80      91m
+[root@ip-172-31-86-210 ~]# kubectl get ing -n echotest
+NAME           HOSTS                   ADDRESS                                                                 PORTS   AGE
+echo-ingress   web1.cloudjethost.com   3698e846-echotest-echoingr-151d-151929068.us-east-1.elb.amazonaws.com   80      91m
+
+
+$ kubectl describe ing <ingress-resource-name> -n <namespace-of-ingress-resource>
+[root@ip-172-31-86-210 ~]#  kubectl describe ing echo-ingress -n echotest
+Name:             echo-ingress
+Namespace:        echotest
+Address:          3698e846-echotest-echoingr-151d-151929068.us-east-1.elb.amazonaws.com
+Default backend:  default-http-backend:80 (<none>)
+Rules:
+  Host                   Path  Backends
+  ----                   ----  --------
+  web1.cloudjethost.com
+                         /*         ssl-redirect:use-annotation (<none>)
+                         /          echo1-service:80 (192.168.178.114:5678,192.168.190.92:5678,192.168.91.71:5678)
+                         /echo2/*   echo2-service:80 (192.168.142.43:5678,192.168.98.80:5678)
+Annotations:
+  alb.ingress.kubernetes.io/listen-ports:            [{"HTTP": 80}, {"HTTPS":443}]
+  alb.ingress.kubernetes.io/scheme:                  internet-facing
+  kubectl.kubernetes.io/last-applied-configuration:  {"apiVersion":"extensions/v1beta1","kind":"Ingress","metadata":{"annotations":{"alb.                            ingress.kubernetes.io/actions.ssl-redirect":"{\"Type\": \"redirect\", \"RedirectConfig\": { \"Protocol\": \"HTTPS\", \"Port\": \"443\", \                            "StatusCode\": \"HTTP_301\"}}","alb.ingress.kubernetes.io/certificate-arn":"arn:aws:acm:us-east-1:500750061763:certificate/81f1de4a-b2a2-                            46de-82a3-8c582c5ba86b","alb.ingress.kubernetes.io/listen-ports":"[{\"HTTP\": 80}, {\"HTTPS\":443}]","alb.ingress.kubernetes.io/scheme":"                            internet-facing","kubernetes.io/ingress.class":"alb"},"labels":{"app":"echo-ingress"},"name":"echo-ingress","namespace":"echotest"},"spec                            ":{"rules":[{"host":"web1.cloudjethost.com","http":{"paths":[{"backend":{"serviceName":"ssl-redirect","servicePort":"use-annotation"},"pa                            th":"/*"},{"backend":{"serviceName":"echo1-service","servicePort":80},"path":"/"},{"backend":{"serviceName":"echo2-service","servicePort"                            :80},"path":"/echo2/*"}]}}]}}
+
+  kubernetes.io/ingress.class:                     alb
+  alb.ingress.kubernetes.io/actions.ssl-redirect:  {"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCo                            de": "HTTP_301"}}
+  alb.ingress.kubernetes.io/certificate-arn:       arn:aws:acm:us-east-1:500750061763:certificate/81f1de4a-b2a2-46de-82a3-8c582c5ba86b
+Events:
+  Type    Reason  Age                 From                    Message
+  ----    ------  ----                ----                    -------
+  Normal  MODIFY  57m (x5 over 93m)   alb-ingress-controller  rule 2 modified with conditions [{    Field: "host-header",    Values: ["we                            b1.cloudjethost.com"]  },{    Field: "path-pattern",    Values: ["/*"]  }]
+  Normal  MODIFY  57m (x4 over 93m)   alb-ingress-controller  rule 2 modified with conditions [{    Field: "host-header",    Values: ["we                            b1.cloudjethost.com"]  },{    Field: "path-pattern",    Values: ["/echo2/*"]  }]
+  Normal  MODIFY  40m (x11 over 93m)  alb-ingress-controller  rule 1 modified with conditions [{    Field: "host-header",    Values: ["we                            b1.cloudjethost.com"]  },{    Field: "path-pattern",    Values: ["/*"]  }]
+  Normal  MODIFY  40m (x7 over 93m)   alb-ingress-controller  rule 3 modified with conditions [{    Field: "host-header",    Values: ["we                            b1.cloudjethost.com"]  },{    Field: "path-pattern",    Values: ["/echo2/*"]  }]
+  Normal  MODIFY  40m (x2 over 53m)   alb-ingress-controller  rule 2 modified with conditions [{    Field: "host-header",    Values: ["we                            b1.cloudjethost.com"]  },{    Field: "path-pattern",    Values: ["/"]  }]
+[root@ip-172-31-86-210 ~]# kubectl get pods -n echotest
+NAME                                READY   STATUS    RESTARTS   AGE
+echo1-deployment-758886bdb8-4tw2z   1/1     Running   0          4h23m
+echo1-deployment-758886bdb8-lsjpv   1/1     Running   0          4h23m
+echo1-deployment-758886bdb8-ms6ft   1/1     Running   0          4h23m
+echo2-deployment-887765599-2xlmr    1/1     Running   0          58m
+echo2-deployment-887765599-hp72h    1/1     Running   0          8h
+
+
+
+kubectl logs -n <namespace> nginx-ingress-controller-67956bf89d-fv58j
+[root@ip-172-31-86-210 ~]#  kubectl logs -n echotest echo1-deployment-758886bdb8-4tw2z
+
+
+
+
+
+
+
+
+[root@ip-172-31-86-210 ~]# kubectl get svc --all-namespaces
+NAMESPACE     NAME            TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
+default       kubernetes      ClusterIP   10.100.0.1       <none>        443/TCP                      33h
+echotest      echo1-service   NodePort    10.100.147.160   <none>        80:30308/TCP,443:32411/TCP   4h26m
+echotest      echo2-service   NodePort    10.100.250.245   <none>        80:30241/TCP,443:30092/TCP   9h
+kube-system   kube-dns        ClusterIP   10.100.0.10      <none>        53/UDP,53/TCP                33h
+[root@ip-172-31-86-210 ~]# kubectl get pods --all-namespaces
+NAMESPACE     NAME                                      READY   STATUS    RESTARTS   AGE
+echotest      echo1-deployment-758886bdb8-4tw2z         1/1     Running   0          4h26m
+echotest      echo1-deployment-758886bdb8-lsjpv         1/1     Running   0          4h26m
+echotest      echo1-deployment-758886bdb8-ms6ft         1/1     Running   0          4h26m
+echotest      echo2-deployment-887765599-2xlmr          1/1     Running   0          61m
+echotest      echo2-deployment-887765599-hp72h          1/1     Running   0          9h
+kube-system   alb-ingress-controller-7cdb677c55-97zm9   1/1     Running   0          20h
+kube-system   aws-node-nmnf5                            1/1     Running   0          23h
+kube-system   aws-node-qg9fg                            1/1     Running   0          23h
+kube-system   coredns-55c5fcd78f-9kqjb                  1/1     Running   0          25h
+kube-system   coredns-55c5fcd78f-k8jfl                  1/1     Running   0          25h
+kube-system   kube-proxy-722f9                          1/1     Running   0          23h
+kube-system   kube-proxy-8f6pc                          1/1     Running   0          23h
+
+[root@ip-172-31-86-210 ~]#  kubectl get deployments --all-namespaces
+NAMESPACE     NAME                     READY   UP-TO-DATE   AVAILABLE   AGE
+echotest      echo1-deployment         3/3     3            3           4h26m
+echotest      echo2-deployment         2/2     2            2           9h
+kube-system   alb-ingress-controller   1/1     1            1           20h
+kube-system   coredns                  2/2     2            2           33h
+
