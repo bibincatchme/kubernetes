@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: "echo-ingress"
+  namespace: "echotest"
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+  labels:
+    app: echo-ingress
+spec:
+  rules:
+    - host: web1.cloudjethost.com
+      http:
+        paths:
+          - path: /echo1
+            backend:
+              serviceName: "echo1-service"
+              servicePort: 80
+          - path: /echo2
+            backend:
+              serviceName: "echo2-service"
+              servicePort: 80
