@@ -1,0 +1,12 @@
+kind: Service
+metadata:
+  name: "echo-service"
+  namespace: "echo-page"
+spec:
+  ports:
+    - port: 80
+      targetPort: 5678
+      protocol: TCP
+  type: NodePort
+  selector:
+    app: "echo"
