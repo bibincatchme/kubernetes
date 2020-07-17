@@ -9,5 +9,8 @@
 
 
 --
-* kubectl auth can-i list pods --namespace jenkins
+
 * kubectl auth can-i create pods
+* kubectl auth can-i create pods --as dev-user
+* kubectl auth can-i list pods --namespace jenkins
+
