@@ -10,4 +10,4 @@
 
 --
 * kubectl auth can-i list pods --namespace jenkins
-* kubectl auth can-i create deployments
+* kubectl auth can-i create pods
