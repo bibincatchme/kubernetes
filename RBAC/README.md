@@ -16,14 +16,4 @@
 
 
 
-//
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: developer
-rules:
-- apiGroups: [""]
-  resources: ["pods"]
-  verbs: ["create","delete","get","list","patch","update","watch"]
-  resourceNames: ["blue","orange"] #we have 5 pods in same namespace and allow 2 pods for role
-  //
+
