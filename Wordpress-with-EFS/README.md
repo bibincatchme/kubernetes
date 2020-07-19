@@ -1,7 +1,7 @@
 1. Create namespace
 kubectl create namespace wordpress
 
-///
+---
 kubectl get storageclass
 NAME      PROVISIONER           AGE
 aws-efs   example.com/aws-efs   45m
@@ -16,7 +16,7 @@ MountOptions:          <none>
 ReclaimPolicy:         Delete
 VolumeBindingMode:     Immediate
 Events:                <none>
-///
+---
 
 ///
 kubectl get pvc -n wordpress
