@@ -1,7 +1,7 @@
 1. Create namespace
 kubectl create namespace wordpress
 
----
+```
 kubectl get storageclass
 NAME      PROVISIONER           AGE
 aws-efs   example.com/aws-efs   45m
@@ -16,9 +16,9 @@ MountOptions:          <none>
 ReclaimPolicy:         Delete
 VolumeBindingMode:     Immediate
 Events:                <none>
----
+```
 
-///
+```
 kubectl get pvc -n wordpress
 NAME            STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 efs-mysql       Bound    pvc-e4060d3c-0a4b-4f88-ac2b-d89e16ab0640   10Gi       RWX            aws-efs        48m
@@ -68,10 +68,10 @@ Events:
   Normal  ExternalProvisioning   48m   persistentvolume-controller                                                                waiting for a volume to be created, either by external provisioner "example.com/aws-efs" or manually created by system administrator
   Normal  Provisioning           48m   example.com/aws-efs_efs-provisioner-748c8ff5c8-wgcgz_47a8c99e-e336-465e-a22f-5fc329f2ee26  External provisioner is provisioning volume for claim "wordpress/efs-wordpress"
   Normal  ProvisioningSucceeded  48m   example.com/aws-efs_efs-provisioner-748c8ff5c8-wgcgz_47a8c99e-e336-465e-a22f-5fc329f2ee26  Successfully provisioned volume pvc-7e297f10-a94e-4ce5-af35-cce51e0d7ce7
-///
+```
 
 
-///
+```
 kubectl get pv -n wordpress
 NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                               STORAGECLASS   REASON   AGE
 pvc-799112a2-3fc7-4247-9d81-77286fa9656c   10Gi       RWX            Delete           Bound    efs-wordpress/efs-wordpress-claim   aws-efs                 49m
@@ -142,10 +142,10 @@ Source:
     Path:      /efs-mysql-pvc-e4060d3c-0a4b-4f88-ac2b-d89e16ab0640
     ReadOnly:  false
 Events:        <none>
-///
+```
 
 
-///
+```
 kubectl get all -n wordpress
 NAME                                   READY   STATUS    RESTARTS   AGE
 pod/efs-provisioner-748c8ff5c8-wgcgz   1/1     Running   0          52m
@@ -166,4 +166,4 @@ replicaset.apps/efs-provisioner-748c8ff5c8   1         1         1       52m
 replicaset.apps/wordpress-7969dbd88f         1         1         1       44m
 replicaset.apps/wordpress-mysql-74c6577759   1         1         1       44m
 [root@ip-172-31-63-86 bibin]#
-///
+```
