@@ -10,6 +10,11 @@ Get Values of prometheus-operator
 Upgrade
 helm upgrade -f values.yaml prometheus-operator stable/prometheus-operator
 
+helm install  stable/prometheus-operator \
+              prometheus \
+             --namespace prometheus \
+             --set alertmanager.persistentVolume.storageClass="gp2",server.persistentVolume.storageClass="gp2",server.service.type=LoadBalancer
+
 
 To uninstall/delete the my-release deployment:
 helm delete prometheus-operator
