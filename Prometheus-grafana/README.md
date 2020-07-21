@@ -16,6 +16,9 @@ helm install  stable/prometheus-operator \
              --set alertmanager.persistentVolume.storageClass="gp2",server.persistentVolume.storageClass="gp2",server.service.type=LoadBalancer
 
 
+
+helm install  prometheus-eks stable/prometheus-operator --set server.service.type=LoadBalancer --set rbac.create=false
+
 To uninstall/delete the my-release deployment:
 helm delete prometheus-operator
 
