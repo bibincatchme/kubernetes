@@ -23,6 +23,10 @@ To uninstall/delete the my-release deployment:
 helm delete prometheus-operator
 
 
+get passowrd
+ kubectl get secret my-prometheus-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+
+
 
 
 https://github.com/helm/charts/tree/master/stable/prometheus
