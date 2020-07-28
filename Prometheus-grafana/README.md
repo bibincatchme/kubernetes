@@ -23,6 +23,28 @@ To uninstall/delete the my-release deployment:
 helm delete prometheus-operator
 
 
+Install
+helm install  my-prometheus stable/prometheus-operator
+
+Edit Grafan Service
+ kubectl edit service/my-prometheus-grafana -o yaml
+
+spec:
+  clusterIP: 10.100.53.119
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: service
+    nodePort: 32000
+    port: 80
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/name: grafana
+  sessionAffinity: None
+  type: NodePort
+
+
 get passowrd
  kubectl get secret my-prometheus-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 
