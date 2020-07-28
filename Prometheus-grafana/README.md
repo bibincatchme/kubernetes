@@ -66,3 +66,6 @@ sum (container_memory_working_set_bytes{id="/",kubernetes_io_hostname=~"^$MYNODE
   Used: sum (container_memory_working_set_bytes{id="/",kubernetes_io_hostname=~"^$MYNODES$"})
   total: sum (machine_memory_bytes{kubernetes_io_hostname=~"^$MYNODES$"})
 
+
+Cluster CPU usage (1m avg)
+sum (rate (container_cpu_usage_seconds_total{id="/",kubernetes_io_hostname=~"^$Node$"}[1m])) / sum (machine_cpu_cores{kubernetes_io_hostname=~"^$Node$"}) * 100
