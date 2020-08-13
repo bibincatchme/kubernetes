@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grafana
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/certificate-arn:  arn:aws:acm:us-east-1:50075006xxx:certificate/81f1de4a-b2a2-46de-82a3-8c582c5ba86b
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-2-2017-01
+    alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+    external-dns.alpha.kubernetes.io/hostname: web1.domain.comm # give your domain name here
+    external-dns.alpha.kubernetes.io/alias: "false"
+  labels:
+    app: grafana
+spec:
+  #tls:
+  #  - hosts:
+  #    - grafana.example.com
+  rules:
+    - host: "web1.domain.com"
+      http:
+        paths:
+          - path: /*
+            backend:
+              serviceName: ssl-redirect
+              servicePort: use-annotation
+          - path: /*
+            backend:
+              serviceName: my-prometheus-grafana
+              servicePort: 80
+
+
+
+#alb.ingress.kubernetes.io/load-balancer-attributes: 'routing.http2.enabled=true,idle_timeout.timeout_seconds=60'
