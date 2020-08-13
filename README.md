@@ -1,3 +1,23 @@
+Commands
+
+```
+Create simple application
+kubectl run nginx  --replicas=2 --labels='app=nginx' --image=nginx --port=80
+
+To verify that your pods are running and have their own internal IP addresses,
+kubectl get pods -l 'app=nginx' -o wide | awk {'print $1" " $3 " " $6'} | column -t
+
+
+node’s public IP address.
+kubectl get nodes -o wide |  awk {'print $1" " $2 " " $7'} | column -t
+
+loadbalacner details
+kubectl get service/nginx-service |  awk {'print $1" " $2 " " $4 " " $5'} | column -t
+
+curl -silent *****.eu-west-1.elb.amazonaws.com:80 | grep title
+```
+
+
 Test the scale out of the EKS worker nodes
 
 1.    To see the current number of worker nodes, run the following command:
