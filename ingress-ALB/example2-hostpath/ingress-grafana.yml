@@ -1,0 +1,15 @@
+grafana:
+  service:
+    type: NodePort
+    port: 80
+    annotations: {}
+    labels: {}
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: "alb"
+      alb.ingress.kubernetes.io/scheme: "internet-facing"
+      alb.ingress.kubernetes.io/success-codes: 200,302
+    hosts:
+      - ""
+    path: /*
