@@ -15,6 +15,11 @@ loadbalacner details
 kubectl get service/nginx-service |  awk {'print $1" " $2 " " $4 " " $5'} | column -t
 
 curl -silent *****.eu-west-1.elb.amazonaws.com:80 | grep title
+
+spin up a new pod, for example with Debian, and install curl:
+kubectl run --rm -ti debug --image=debian --restart=Never bash
+
+root@debug:/# apt update && apt -y install curl
 ```
 
 
