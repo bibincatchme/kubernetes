@@ -47,3 +47,59 @@ spec:
       - name: persistent-storage
         persistentVolumeClaim:
           claimName: pvc-claim
+          
+          
+          
+=================================
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins
+  labels:
+    name: jenkins
+    app: jenkins
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: jenkins
+  template:
+    metadata:
+      labels:
+        app: jenkins
+        name: jenkins
+      name: jenkins
+    spec:
+      securityContext:
+        fsGroup: 1000
+      serviceAccountName: jenkins
+      containers:
+      - env:
+        - name: JAVA_OPTS
+          value: -Xmx2048m -Dhudson.slaves.NodeProvisioner.MARGIN=50 -Dhudson.slaves.NodeProvisioner.MARGIN0=0.85
+        - name: UID
+          value: '1000'
+        image: jenkins/jenkins #:lts-alpine
+        imagePullPolicy: IfNotPresent
+        name: jenkins
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 50000
+          protocol: TCP
+        resources:
+         limits:
+           cpu: 500m
+           memory: 1500Mi
+         requests:
+           cpu: 330m
+           memory: 1Gi
+        volumeMounts:
+        - mountPath: /var/jenkins_home
+          name: persistent-storage
+      volumes:
+      - name: persistent-storage
+        persistentVolumeClaim:
+          claimName: pvc-claim
+
