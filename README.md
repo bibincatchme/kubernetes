@@ -20,6 +20,10 @@ spin up a new pod, for example with Debian, and install curl:
 kubectl run --rm -ti debug --image=debian --restart=Never bash
 
 root@debug:/# apt update && apt -y install curl
+
+---
+
+kubectl exec redis cat /redis-master/redis.conf
 ```
 
 
