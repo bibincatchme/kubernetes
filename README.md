@@ -24,6 +24,8 @@ root@debug:/# apt update && apt -y install curl
 ---
 
 kubectl exec redis cat /redis-master/redis.conf
+
+kubectl exec -it <pod> -- /bin/sh
 ```
 
 
