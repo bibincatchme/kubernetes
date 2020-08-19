@@ -36,3 +36,19 @@ Some additional useful metrics can be found here:
 /healthz/ping: To check connectivity to etcd
 /spec: Endpoint returns the cAdvisor MachineInfo()
 For example, to see the cAdvisor MachineInfo()
+
+
+
+
+
+Kubelet
+The Kubelet is one of the most important components in Kubernetes. Basically, it’s an agent that runs on each node and is responsible for watching the API Server for pods that are bound to its node and making sure those pods are running (it talks to the Docker daemon using the API over the Docker socket to manipulate containers lifecycle). It then reports back to the API Server the status of changes regarding those pods.
+The main Kubelet responsibilities include:
+Run the pods containers.
+Report the status of the node and each pod to the API Server.
+Run container probes.
+Retrieve container metrics from cAdvisor, aggregate and expose them through the Kubelet Summary API for components (such as Heapster) to consume.
+The last responsibility listed above will change in the future as cAdvisor will be turned off for container stats collection and replaced by the Container Runtime Interface.
+The Kubelet also starts an internal HTTP server on port 10255 and exposes some endpoints (mostly for debugging, stats, and for one-off container operations such as kubectl logs or kubectl exec), such as /metrics, /metrics/cadvisor, /pods, /spec, and so on.
+cAdvisor
+The Kubelet ships with built-in support for cAdvisor, which collects, aggregates, processes and exports metrics (such as CPU, memory, file and network usage) about running containers on a given node. cAdvisor includes a built-in web interface available on port 4194 (just open your browser and navigate to http://<node-ip>:4194/).
