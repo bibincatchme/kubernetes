@@ -52,3 +52,14 @@ The last responsibility listed above will change in the future as cAdvisor will 
 The Kubelet also starts an internal HTTP server on port 10255 and exposes some endpoints (mostly for debugging, stats, and for one-off container operations such as kubectl logs or kubectl exec), such as /metrics, /metrics/cadvisor, /pods, /spec, and so on.
 cAdvisor
 The Kubelet ships with built-in support for cAdvisor, which collects, aggregates, processes and exports metrics (such as CPU, memory, file and network usage) about running containers on a given node. cAdvisor includes a built-in web interface available on port 4194 (just open your browser and navigate to http://<node-ip>:4194/).
+
+
+
+
+
+
+
+Kubernetes metrics server
+Starting from Kubernetes 1.8, the resource usage metrics coming from the kubelets and cadvisor are available through the Kubernetes metrics server API the same way Kubernetes API is exposed.
+
+This service doesn’t allow us to store values over time either, and lacks visualization or analytics. Kubernetes metrics server is used for Kubernetes advanced orchestration like Horizontal Pod Autoscaler for autoscaling.
