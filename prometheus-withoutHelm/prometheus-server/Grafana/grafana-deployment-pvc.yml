@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: monitoring
+  name: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      name: grafana
+      labels:
+        app: grafana
+    spec:
+      securityContext:
+        fsGroup: 1000
+      containers:
+      - name: grafana
+        image: grafana/grafana:latest
+        ports:
+        - name: grafana
+          containerPort: 3000
+        resources:
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+        volumeMounts:
+          - mountPath: /etc/grafana/provisioning/datasources
+            name: grafana-datasources-volume
+            readOnly: false
+          - mountPath: /var/lib/grafana
+            name: grafana-storage-volume
+      volumes:
+        - name: grafana-datasources-volume
+          configMap:
+            name: grafana-datasources
+        - name: grafana-storage-volume
+          persistentVolumeClaim:
+            claimName: grafana-pvc-claim
