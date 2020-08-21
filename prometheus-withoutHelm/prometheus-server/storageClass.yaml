@@ -1,0 +1,8 @@
+kind: StorageClass
+metadata:
+  name: ssd-prometheus
+  namespace: monitoring
+provisioner: kubernetes.io/aws-ebs
+reclaimPolicy: Retain
+parameters:
+  type: gp2
