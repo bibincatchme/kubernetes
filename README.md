@@ -29,6 +29,18 @@ kubectl exec -it <pod> -- /bin/sh
 
 Change default namespace to monitoring
 kubectl config set-context --current --namespace=monitoring
+
+```
+
+```
+##DNS Check
+Use kubectl run to execute a container that provides the nslookup command from the dnsutils package. Using nslookup on the Pods' hostnames, you can examine their in-cluster DNS addresses:
+
+kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
+which starts a new shell. In that new shell, run:
+
+# Run this in the dns-test container shell
+nslookup web-0.nginx
 ```
 
 
