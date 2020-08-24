@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: prometheus-statefulset
+  namespace: monitoring
+  labels:
+    app: prometheus-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-server
+  serviceName: "prometheus-service"
+  template:
+    metadata:
+      labels:
+        app: prometheus-server
+    spec:
+      serviceAccountName: prometheus
+      containers:
+      - name: prometheus
+        image: prom/prometheus
+        args:
+          - "--config.file=/etc/prometheus/prometheus.yml"
+          - "--storage.tsdb.path=/prometheus/"
+        volumeMounts:
+        - name: prometheus-config-volume
+          mountPath: /etc/prometheus
+        - name: prometheus-storage-volume
+          mountPath: /prometheus
+        ports:
+        - containerPort: 9090
+          name: prometheus-svc
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - name: prometheus-config-volume
+          configMap:
+            name: prometheus-server-conf
+  volumeClaimTemplates:
+  - metadata:
+      name: prometheus-storage-volume
+      namespace: monitoring
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: ssd-prometheus
+      resources:
+        requests:
+          storage: 5Gi
