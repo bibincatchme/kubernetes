@@ -43,6 +43,18 @@ which starts a new shell. In that new shell, run:
 nslookup web-0.nginx
 ```
 
+```
+cat << EOF > object-store.yaml
+type: S3
+config:
+  endpoint: "s3.eu-west-1.amazonaws.com"
+  bucket: "test-bucket"
+  region: "eu-west-1"
+  access_key: "${AWS_ACCESS_KEY_ID}"
+  secret_key: "${AWS_SECRET_ACCESS_KEY}"
+EOF
+```
+
 
 Test the scale out of the EKS worker nodes
 
