@@ -64,3 +64,10 @@ spec:
         claimName: my-pvc
         
         ```
+        
+        
+
+Create pod
+```
+kubectl run nginx-resolver --image=nginx --generator=run-pod/v1        
+```
