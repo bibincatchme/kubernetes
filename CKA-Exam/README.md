@@ -228,3 +228,24 @@ spec:
     name: non-root-pod
 ```
 
+
+
+NetworkPolicy
+
+```
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ingress-to-nptest
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      run: np-test-1
+  ingress:
+  - ports:
+    - protocol: TCP
+      port: 80
+  policyTypes:
+  - Ingress
+```  
