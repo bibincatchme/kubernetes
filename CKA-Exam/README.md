@@ -62,8 +62,7 @@ spec:
     - name: mypd
       persistentVolumeClaim:
         claimName: my-pvc
-        
-        ```
+```
         
         
 
@@ -73,9 +72,28 @@ Create pod
 kubectl run nginx-resolver --image=nginx --generator=run-pod/v1        
 ```
 
+Create CSR for the user
+
+apiVersion: certificates.k8s.io/v1beta1
+kind: CertificateSigningRequest
+metadata:
+  name: john-developer
+spec:
+  request: $(cat server.csr | base64 | tr -d '\n')
+  usages:
+  - digital signature
+  - key encipherment
+  - server auth
+
+
+csr approve 
+kubectl certificate approve john-developer
+
+
+
+
 
 Role
-
 kubectl create role test --resource=pods --verb=create   --namespace=development
 
 ```
