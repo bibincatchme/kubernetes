@@ -128,3 +128,23 @@ subjects:
   kind: User
   name: john
   ```
+
+
+
+#Create pod
+kubectl run nginx-resolver --image=nginx --generator=run-pod/v1
+
+#Create service 
+kubectl expose pod nginx-resolver --name=nginx-resolver-service  --port=80 --target-port=80 --type=ClusterIP
+
+#verify svc
+kubectl describe svc nginx-resolver-service
+kubectl get pod nginx-resolver -o wide
+
+#nslookup 
+
+#It doesn't work,I think the image is not good.
+kubectl run --generator=run-pod/v1 test-nslookup --image=busybox:1.28 --rm -it -- nslookup nginx-resolver-service
+
+#method1 :copy the result for the logs,without server
+kubectl logs test-nslookup
