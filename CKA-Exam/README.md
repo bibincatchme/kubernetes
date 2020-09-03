@@ -68,6 +68,45 @@ spec:
         
 
 Create pod
+
 ```
 kubectl run nginx-resolver --image=nginx --generator=run-pod/v1        
 ```
+
+
+Role
+
+kubectl create role test --resource=pods --verb=create   --namespace=development
+
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: development
+  name: developer
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods"]
+  verbs: ["create", "list", "get", "update", "delete"]
+```
+
+Role Binding
+
+
+kubectl create rolebinding dev-role-binding --role=developer --user=john --namespace=development
+
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: dev-role-binding
+  namespace: development
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: developer
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: john
+  ```
