@@ -148,3 +148,31 @@ kubectl run --generator=run-pod/v1 test-nslookup --image=busybox:1.28 --rm -it -
 
 #method1 :copy the result for the logs,without server
 kubectl logs test-nslookup
+
+
+
+
+
+
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multi-pod
+spec:
+  containers:
+  - image: nginx
+    name: alpha
+    env:
+    - name: name
+      value: alpha
+  - image: busybox
+    name: beta
+    command:
+     - "sleep"
+     - "4800"
+    env:
+    - name: name
+      value: beta
+ ```
