@@ -151,10 +151,41 @@ kubectl logs test-nslookup
 
 
 
+Cluster Role
 
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: pvviewer-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumes
+  verbs:
+  - list
+```
+Cluster Role Bindings
 
+```
+master $ cat clusterrolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+# This cluster role binding allows anyone in the "manager" group to read secrets in any namespace.
+kind: ClusterRoleBinding
+metadata:
+  name: pvviewer
+subjects:
+- kind: ServiceAccount
+  name: pvviewer # Name is case sensitive
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: pvviewer-role
+  apiGroup: rbac.authorization.k8s.io
+```
 
-
+Multi Container Pod with command n env
 ```
 apiVersion: v1
 kind: Pod
@@ -176,3 +207,4 @@ spec:
     - name: name
       value: beta
  ```
+
