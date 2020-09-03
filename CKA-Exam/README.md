@@ -208,3 +208,23 @@ spec:
       value: beta
  ```
 
+
+
+Run as User
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: non-root-pod
+  name: non-root-pod
+spec:
+  securityContext:
+   runAsUser: 1000
+   fsGroup: 2000
+  containers:
+  - image: redis:alpine
+    name: non-root-pod
+```
+
