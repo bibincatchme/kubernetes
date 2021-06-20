@@ -46,13 +46,18 @@ kubectl edit -n kube-system configmap/aws-auth
 
 ```
 5. Update the kubeconfig
+ ```
  aws eks --region us-east-1 update-kubeconfig --name <CLUSTER-NAME> --profile developer
-  
+  ```
 6. To view the config
+    ```
    kubectl config view --minify
+    ```
   
 7. To check the Developer Permission
+```
 kubectl auth can-i get pods
 kubectl auth can-i create pods
 kubectl get svc
 kubectl run nginx --image=nginx
+```
