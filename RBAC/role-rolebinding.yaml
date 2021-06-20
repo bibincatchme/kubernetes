@@ -1,0 +1,31 @@
+# role.yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: develop
+  name: full_access
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]
+
+# rolebinding.yaml
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: full_access_role_binding
+  namespace: develop
+subjects:
+- kind: User
+  name: marcincuber-role
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: full_access
+  apiGroup: rbac.authorization.k8s.io
+  
+  
+  
+#Create an RBAC Role to namespace
+#Create RoleBinding for Role
+#In this case you will grant the same permissions as previously and marcincuber-role will have admin permissions in develop namespace.
