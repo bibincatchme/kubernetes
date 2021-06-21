@@ -4,7 +4,7 @@
 ### What is a Service Account? Using RBAC with Service Accounts in Kubernetes
 #### In Kubernetes, service accounts are used to provide an identity for pods. (A service account provides an identity for processes that run in a Pod.) Pods that want to interact with the Kubernetes API server will authenticate with a particular service account. By default, applications will authenticate as the default service account in the namespace they are running in. 
 #### This means, for example, that an application running in the test namespace will use the default service account of the test namespace.
-#### k8s automatically mount the default  serviceaccount with each pods
+#### k8s automatically mount the default  serviceaccount secret token with each pods
 
 which can be used to:
 1. Authenticate Pods to the Kubernetes API server, allowing the Pods to read and manipulate Kubernetes API objects (for example, a CI/CD pipeline that deploys applications to your cluster).
