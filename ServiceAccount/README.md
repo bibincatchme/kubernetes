@@ -10,6 +10,11 @@ which can be used to:
 1. Authenticate Pods to the Kubernetes API server, allowing the Pods to read and manipulate Kubernetes API objects (for example, a CI/CD pipeline that deploys applications to your cluster).
 2. Authenticate Pods to Google Cloud resources through Workload Identity, allowing Pods to act as a Google service account. This allows you to give fine-grained identity and authorization to Pods when they need access to Google Cloud APIs. (Access AWS Role with Identity provider)
 
+
+* The concept of service accounts is linked to other security related concepts and Kubernetes such as authorization, authentication, role-based access controls etc.
+
+
+
 (As service account could be an account used by an application to interact with a Kubernetes cluster. For example a monitoring application like Prometheus is used as a service account to pull the Kubernetes API for performance metrics. An automated build tool like Jenkin's uses service accounts to deploy)
 
 
