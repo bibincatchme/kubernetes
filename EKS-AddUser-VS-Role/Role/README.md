@@ -138,3 +138,13 @@ curl -o aws-auth-cm.yaml https://s3.us-west-2.amazonaws.com/amazon-eks/cloudform
 
 https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html
 ```
+
+
+13. Update kubeconfig
+
+```
+aws eks update-kubeconfig \
+    --region us-east-1 \
+    --name eksdemo1 \
+    --role-arn arn:aws:iam::04244873:user/developer
+```	
