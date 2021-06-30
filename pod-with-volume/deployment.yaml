@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-app
+
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: userapp
+        tier: frontend
+    spec:
+      containers:
+        - name: nodejs-conatiner
+          image: 04244873.dkr.ecr.us-east-1.amazonaws.com/bibin-node:latest
+          ports:
+          - containerPort: 3000
+          env:
+          - name: ECS_DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: nodejs-dbsecret
+                key: DB_HOST
+          - name: ECS_DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: nodejs-dbsecret
+                key: DB_USER_NAME
+          - name: ECS_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: nodejs-dbsecret
+                key: DB_PASSWORD                         
+          - name: ECS_DB_DATABASE
+            valueFrom:
+              configMapKeyRef:
+                name: nodejs-config      
+                key: DB_DATABASE     
+          - name: ECS_PROFILE_IMAGE_BASE_PATH
+            value: "localhost"    
+          volumeMounts:
+          - name: image-storage
+            mountPath: /data/
+      volumes:
+      - name: image-storage
+        emptyDir: {}                           
+  selector:
+    matchLabels:
+        app: userapp        
+
+
+
+
+
