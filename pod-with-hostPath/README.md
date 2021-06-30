@@ -1,4 +1,4 @@
-
+#### storageClassName: manual 
 
 ```
 Create an index.html file on your Node
@@ -25,3 +25,5 @@ You can now close the shell to your Node.
 ```
 
 #### only work with single node cluster
+https://docs.openshift.com/container-platform/4.2/storage/persistent_storage/persistent-storage-hostpath.html
+https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
