@@ -1,4 +1,4 @@
-##Volume Binding Mode Immediate and WaitForFirstConsumer
+## Volume Binding Mode Immediate and WaitForFirstConsumer
 
 ```
 The volumeBindingMode field controls when volume binding and dynamic provisioning should occur. When unset, "Immediate" mode is used by default.
