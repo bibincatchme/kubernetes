@@ -1,0 +1,18 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: task-pvc
+  labels:
+    type: aws-pvc
+spec:
+  storageClassName: ""
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  volumeName: task-pv  #pv volume name
+
+      #  selector:
+      #    matchLabels:
+      #      type: "amazonEBS"
