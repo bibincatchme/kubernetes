@@ -44,3 +44,28 @@ spec:
     volumeAttributes:
       path: "/efs-test"
 ```
+
+
+
+```
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: efs-csi
+provisioner: efs.csi.aws.com
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: efs-claim
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: efs-csi
+  resources:
+    requests:
+      storage: 5Gi
+
+```
