@@ -33,6 +33,12 @@ Change default namespace to monitoring
 kubectl config set-context --current --namespace=monitoring
 
 ```
+ #### cat file from inside the conatiner
+```
+kubectl exec -it efs-app -- bash -c "cat /efs-data/out.txt"
+```
+
+---
 
 ```
 ##DNS Check
