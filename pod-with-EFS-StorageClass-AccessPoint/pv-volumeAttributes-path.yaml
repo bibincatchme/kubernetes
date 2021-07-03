@@ -15,3 +15,6 @@ spec:
     volumeHandle: fs-0a660
     volumeAttributes:
       path: "/efsbibin-test"
+
+
+# create the efsbibin-test folder under the EFS mount point
